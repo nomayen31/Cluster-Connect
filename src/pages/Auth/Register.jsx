@@ -7,7 +7,7 @@ import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 // InputField Component
-const InputField = ({ label, type, placeholder, id, onChange, value }) => {
+const InputField = ({ label, type, placeholder, id, onChange, value, name }) => {
   const isPassword = type === "password";
   const [fieldType, setFieldType] = useState(type);
   const [isVisible, setIsVisible] = useState(false);
@@ -29,6 +29,7 @@ const InputField = ({ label, type, placeholder, id, onChange, value }) => {
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          name={name}
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
         />
         {isPassword && (
@@ -58,6 +59,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    profileImage: "", // Added profile image URL field
   });
   const { createNewUser, setUser, signInWithGithub, signInWithGoogle } =
     useContext(AuthContext);
@@ -69,26 +71,44 @@ const Register = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const validatePassword = (password) => {
+    const regex =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    return regex.test(password);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setError(""); // Clear previous errors
 
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
-    const { name, email, password } = formData;
+    if (!validatePassword(formData.password)) {
+      setError(
+        "Password must be at least 6 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
+      );
+      return;
+    }
+
+    const { name, email, password, profileImage } = formData;
 
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
+        // Updating user profile with name and photoURL (profileImage)
         updateProfile(user, {
           displayName: name,
+          photoURL: profileImage, // Set profile image URL
         })
           .then(() => {
             setUser({
               ...user,
               displayName: name,
+              photoURL: profileImage,
             });
             alert("Registration successful!");
             navigate(location.state?.from || "/");
@@ -175,6 +195,17 @@ const Register = () => {
                 name="confirmPassword"
               />
 
+              {/* New Profile Image Input */}
+              <InputField
+                id="profileImage"
+                label="Profile Image URL"
+                type="text"
+                placeholder="Enter your profile image URL"
+                value={formData.profileImage}
+                onChange={handleChange}
+                name="profileImage"
+              />
+
               <button
                 type="submit"
                 className="w-full py-3 mt-4 text-lg font-semibold text-white bg-green-500 rounded-lg shadow-md transition duration-200 hover:bg-green-600"
@@ -199,7 +230,9 @@ const Register = () => {
                 className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:shadow-md transition duration-150 w-full sm:w-auto justify-center"
               >
                 <FcGoogle className="text-2xl" />
-                <span className="text-gray-700 font-medium">Register with Google</span>
+                <span className="text-gray-700 font-medium">
+                  Register with Google
+                </span>
               </button>
 
               <button
@@ -207,7 +240,9 @@ const Register = () => {
                 className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:shadow-md transition duration-150 w-full sm:w-auto justify-center"
               >
                 <FaGithub className="text-xl text-gray-700" />
-                <span className="text-gray-700 font-medium">Register with GitHub</span>
+                <span className="text-gray-700 font-medium">
+                  Register with GitHub
+                </span>
               </button>
             </div>
 
@@ -216,7 +251,7 @@ const Register = () => {
               <p className="text-sm text-gray-500">
                 Already Have an Account?
                 <Link
-                  to="/login"
+                  to="/auth/login"
                   className="text-indigo-600 hover:text-indigo-700 font-semibold ml-1 transition duration-150"
                 >
                   Sign In.

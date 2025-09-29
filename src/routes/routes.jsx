@@ -21,7 +21,6 @@ const router = createBrowserRouter([
         path: "/", 
         element: <Home /> 
       },
-      
       { 
         path: "/browse-tasks", 
         element: <BrowseTasks /> 

@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="p-6 dark:bg-[#1F4B3F] dark:text-white rounded-tr-[60px]">
 	<div className="container grid grid-cols-2 mx-auto gap-x-3 gap-y-8 sm:grid-cols-3 md:grid-cols-4">
 		<div className="flex flex-col space-y-4">
-			<h2 className="font-medium">Getting started</h2>
+			<h2 className="font-medium">Cluster Connect</h2>
 			<div className="flex flex-col space-y-2 text-sm dark:text-white">
 				<a rel="noopener noreferrer" href="#">Installation</a>
 				<a rel="noopener noreferrer" href="#">Release Notes</a>
@@ -51,7 +51,7 @@ const Footer = () => {
 		</div>
 	</div>
 	<div className="flex items-center justify-center px-6 pt-12 text-sm">
-		<span className="dark:text-white">© Copyright 1986. All Rights Reserved.</span>
+		<span className="dark:text-white">© Cluster Connect Copyright 2025. All Rights Reserved.</span>
 	</div>
 </footer>
   );
