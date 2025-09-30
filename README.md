@@ -50,7 +50,7 @@ You will need **Node.js** (version 16 or higher is recommended) installed on you
 
 1.  **Clone the repository:**
     ```bash
-    git clone [Your Repository URL]
+    git clone (https://github.com/nomayen31/Cluster-Connect.git)
     cd cluster-connect-client
     ```
 2.  **Install dependencies:**
