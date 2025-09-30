@@ -7,6 +7,8 @@ const MyPostedTask = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [taskBids, setTaskBids] = useState(null); // To store the total bids count
 
   // Fetch tasks posted by the current user
   useEffect(() => {
@@ -48,6 +50,24 @@ const MyPostedTask = () => {
     } catch (err) {
       alert(err.message);
     }
+  };
+
+  // Handle "View Bids" button click
+  const handleViewBids = async (taskId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/tasks/${taskId}/bids`);
+      if (!response.ok) throw new Error('Failed to fetch bids');
+      const data = await response.json();
+      setTaskBids(data.bids); // Assuming `data.bids` contains the total number of bids
+      setModalOpen(true);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setTaskBids(null);
   };
 
   if (loading) return <div className="text-center text-2xl font-semibold text-indigo-600 mt-20">Loading your tasks... 🚀</div>;
@@ -105,18 +125,36 @@ const MyPostedTask = () => {
                         Delete
                       </button>
                       {/* View Bids Button */}
-                      <Link
-                        to={`/task-bids/${task._id}`}
+                      <button
+                        onClick={() => handleViewBids(task._id)}
                         className="px-4 py-2 text-sm font-medium bg-[#007BFF] text-white rounded-lg shadow hover:bg-[#0056b3] transition duration-150 transform hover:scale-105"
                       >
                         View Bids
-                      </Link>
+                      </button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+            <h3 className="text-2xl font-bold mb-4">Total Bids for Task</h3>
+            <p className="text-xl text-center">{taskBids !== null ? taskBids : 'Loading...'}</p>
+            <div className="mt-4 text-center">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition duration-150"
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
