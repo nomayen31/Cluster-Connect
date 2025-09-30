@@ -5,11 +5,11 @@ import BrowseTasks from "../pages/Tasks/BrowseTasks";
 import AddTask from "../pages/Tasks/AddTask";
 import ProtectedRoute from "../Provider/ProtectedRoute";
 import TaskDetails from "../pages/Tasks/TaskDetails";
-import MyTasks from "../pages/Tasks/MyTasks";
 import UpdateTask from "../pages/Tasks/UpdateTask";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import ErrorPage from "../pages/ErrorPage";
+import MyPostedTask from "../pages/Tasks/MyPostedTask";
 
 const router = createBrowserRouter([
   {
@@ -30,12 +30,12 @@ const router = createBrowserRouter([
         element: <ProtectedRoute><AddTask/></ProtectedRoute> 
       },
       { 
-        path: "/task/:id", 
+        path: "/browse-tasks/:id", 
         element: <ProtectedRoute><TaskDetails /></ProtectedRoute> 
       },
       { 
-        path: "/my-tasks", 
-        element: <ProtectedRoute><MyTasks /></ProtectedRoute> 
+        path: "/my-posted-task", 
+        element: <ProtectedRoute><MyPostedTask/></ProtectedRoute> 
       },
       { 
         path: "/update-task/:id", 

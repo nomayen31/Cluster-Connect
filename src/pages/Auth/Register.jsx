@@ -162,7 +162,7 @@ const Register = () => {
                 id="name"
                 label="Name"
                 type="text"
-                placeholder="Roger Gerrard"
+                placeholder="Nomayen Hossain"
                 value={formData.name}
                 onChange={handleChange}
                 name="name"
@@ -171,7 +171,7 @@ const Register = () => {
                 id="email"
                 label="Email"
                 type="email"
-                placeholder="email@domain.com"
+                placeholder="email@cluster.com"
                 value={formData.email}
                 onChange={handleChange}
                 name="email"
