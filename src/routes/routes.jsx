@@ -14,42 +14,46 @@ import MyPostedTask from "../pages/Tasks/MyPostedTask";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />, 
-    errorElement: <ErrorPage/>,
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
-      { 
-        path: "/", 
-        element: <Home /> 
+      {
+        path: "/",
+        element: <Home />
       },
-      { 
-        path: "/browse-tasks", 
-        element: <BrowseTasks /> 
+      {
+        path: "/browse-tasks",
+        element: <BrowseTasks />
       },
-      { 
-        path: "/add-task", 
-        element: <ProtectedRoute><AddTask/></ProtectedRoute> 
+      {
+        path: "/add-task",
+        element: <ProtectedRoute><AddTask /></ProtectedRoute>
       },
-      { 
-        path: "/browse-tasks/:id", 
-        element: <ProtectedRoute><TaskDetails /></ProtectedRoute> 
+      {
+        path: "/browse-tasks/:id",
+        element: <ProtectedRoute><TaskDetails /></ProtectedRoute>
       },
-      { 
-        path: "/my-posted-task", 
-        element: <ProtectedRoute><MyPostedTask/></ProtectedRoute> 
+      {
+        path: "/my-posted-task",
+        element: <ProtectedRoute><MyPostedTask /></ProtectedRoute>
       },
-      { 
-        path: "/update-task/:id", 
-        element: <ProtectedRoute><UpdateTask /></ProtectedRoute> 
+      {
+        path: "/update-task/:id",
+        element: <ProtectedRoute><UpdateTask/></ProtectedRoute>,
+        // 1. Add the loader function here
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/tasks/${params.id}`).then(res => res.json())
+
       },
-      
+
       // Authentication Routes
-      { 
-        path: "auth/login", 
-        element: <Login /> 
+      {
+        path: "auth/login",
+        element: <Login />
       },
-      { 
-        path: "auth/register", 
-        element: <Register /> 
+      {
+        path: "auth/register",
+        element: <Register />
       }
     ]
   }
