@@ -4,6 +4,13 @@
 - **Server Side:** [https://cluster-connect-server.vercel.app/](https://cluster-connect-server.vercel.app/)  
 - **Server Side Repo:** [https://github.com/nomayen31/Cluster-Connect_Server](https://github.com/nomayen31/Cluster-Connect_Server)  
 
+## 🔑 Demo Login
+
+To explore the application without creating a new account, you can use the following demo credentials:
+
+- **Email:** demo@gmail.com  
+- **Password:** @Demo123#$%@@  
+
 ---
 **cluster-connect-client** is the client-side application for a modern web project, built with a robust and popular stack for a fast, component-driven, and scalable user interface.
 
