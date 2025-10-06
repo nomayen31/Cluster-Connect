@@ -36,7 +36,7 @@ const UpdateTask = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/tasks/${id}`, {
+      const response = await fetch(`https://cluster-connect-server.vercel.app/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

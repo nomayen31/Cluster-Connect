@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute><UpdateTask/></ProtectedRoute>,
         // 1. Add the loader function here
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/tasks/${params.id}`).then(res => res.json())
+          fetch(`https://cluster-connect-server.vercel.app/tasks/${params.id}`).then(res => res.json())
 
       },
 

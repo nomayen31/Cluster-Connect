@@ -20,7 +20,7 @@ const MyPostedTask = () => {
       }
       try {
         const response = await fetch(
-          `http://localhost:3000/my-posted-task?userEmail=${user.email}`
+          `https://cluster-connect-server.vercel.app/my-posted-task?userEmail=${user.email}`
         );
         if (!response.ok) throw new Error("Failed to fetch your tasks");
         const data = await response.json();
@@ -47,7 +47,7 @@ const MyPostedTask = () => {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/tasks/${id}`, {
+        const response = await fetch(`https://cluster-connect-server.vercel.app/tasks/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
@@ -65,7 +65,7 @@ const MyPostedTask = () => {
 
   const handleViewBids = async (taskId) => {
     try {
-      const response = await fetch(`http://localhost:3000/tasks/${taskId}/bids`);
+      const response = await fetch(`https://cluster-connect-server.vercel.app/tasks/${taskId}/bids`);
       if (!response.ok) throw new Error("Failed to fetch bids");
       const data = await response.json();
       setTaskBids(data.bids);

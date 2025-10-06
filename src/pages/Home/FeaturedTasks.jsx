@@ -10,7 +10,7 @@ const FeaturedTasks = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:3000/featured-tasks");
+        const response = await fetch("https://cluster-connect-server.vercel.app/featured-tasks");
         if (!response.ok) throw new Error("Failed to fetch tasks");
         const data = await response.json();
         setTasks(data);

@@ -15,7 +15,7 @@ const TaskDetails = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:3000/browse-tasks/${id}`);
+      const response = await fetch(`https://cluster-connect-server.vercel.app/browse-tasks/${id}`);
       if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(errorMessage || `Failed to fetch task: ${response.status}`);
@@ -42,7 +42,7 @@ const TaskDetails = () => {
   const handleBid = async () => {
     setBidLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/tasks/${id}/bid`, {
+      const response = await fetch(`https://cluster-connect-server.vercel.app/tasks/${id}/bid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });

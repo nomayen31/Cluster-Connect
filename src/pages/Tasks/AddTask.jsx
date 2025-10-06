@@ -28,7 +28,7 @@ const AddTask = () => {
       displayName,
     };
 
-    fetch("http://localhost:3000/add-task", {
+    fetch("https://cluster-connect-server.vercel.app/add-task", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(taskData),
